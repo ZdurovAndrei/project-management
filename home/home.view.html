@@ -1,5 +1,6 @@
-﻿<h3>Здравствуйте, {{vm.user.firstName}}</h3>
+﻿<h3>Здравствуйте, {{vm.user.firstName}} "{{vm.user.role}}" "{{vm.isAdmin}}"</h3>
 <p><a href="#/modifyUser" class="btn btn-primary">Редактировать профиль</a></p>
+<p><a href="#" ng-show="vm.isAdmin" class="btn btn-primary">Редактировать пользователей</a></p>
 <ul>
     <li ng-repeat="user in vm.allUsers">
         {{user.username}} Роль: "{{user.role}}"

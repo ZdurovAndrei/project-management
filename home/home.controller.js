@@ -11,27 +11,27 @@
         vm.user = null;
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
+        vm.isAdmin = false;
 
         loadCurrentUser();
-        loadAllUsers();
 
         function loadCurrentUser() {
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
                     vm.user = user;
+                    if (vm.user.role == 'Admin') {
+                        loadUsers();
+                        vm.isAdmin = true;
+                    }
                 });
         }
 
-        function loadAllUsers() {
+        function loadUsers() {
             UserService.GetAll()
                 .then(function (users) {
                     vm.allUsers = users;
                 });
         }
-
-        // if (vm.user.role === 'Admin') {
-        //
-        // }
 
         function deleteUser(id) {
             UserService.Delete(id)

@@ -48,6 +48,11 @@
                         } else {
                             var users = getUsers();
                             var lastUser = users[users.length - 1] || { id: 0 };
+                            if (lastUser.id == 0) {
+                                user.role = 'Admin';
+                            } else {
+                                user.role = 'User';
+                            }
                             user.id = lastUser.id + 1;
                             users.push(user);
                             setUsers(users);

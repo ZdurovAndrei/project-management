@@ -1,7 +1,8 @@
 ﻿<h3>Здравствуйте, {{vm.user.firstName}}</h3>
+<p><a href="#/modifyUser" class="btn btn-primary">Редактировать профиль</a></p>
 <ul>
     <li ng-repeat="user in vm.allUsers">
-        {{user.username}} ({{user.firstName}} {{user.lastName}} {{user.middleName}})
+        {{user.username}} Роль: "{{user.role}}"
         - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
     </li>
 </ul>

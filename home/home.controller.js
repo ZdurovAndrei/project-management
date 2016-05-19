@@ -29,6 +29,10 @@
                 });
         }
 
+        // if (vm.user.role === 'Admin') {
+        //
+        // }
+
         function deleteUser(id) {
             UserService.Delete(id)
             .then(function () {

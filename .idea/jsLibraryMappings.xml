@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{angular-cookies, angular-route, jquery-2.0.3}" />
+    <file url="file://$PROJECT_DIR$/register/register.view.html" libraries="{angular}" />
+    <file url="PROJECT" libraries="{bootstrap, jquery, jquery.easing}" />
   </component>
 </project>

@@ -1,11 +1,74 @@
 ﻿<h3>Здравствуйте, {{vm.user.firstName}} "{{vm.user.role}}" "{{vm.isAdmin}}"</h3>
-<p><a href="#/modifyUser" class="btn btn-primary">Редактировать профиль</a></p>
-<p><a href="#" ng-show="vm.isAdmin" class="btn btn-primary">Редактировать пользователей</a></p>
-<ul>
-    <li ng-repeat="user in vm.allUsers">
-        {{user.username}} Роль: "{{user.role}}"
-        - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
-    </li>
-</ul>
+
+<!--Редактирование профиля-->
+<button class="btn btn-primary" data-toggle="modal" data-target="#modifyUser">Редактировать профиль</button>
+<div id="modifyUser" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-submit="vm.modifyUser()">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Редактирование профиля</h4>
+            </div>
+            <div class="modal-body">
+                <form name="form" role="form">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+                        <label>Фамилия</label>
+                        <input type="text" class="form-control" ng-model="vm.user.lastName" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+                        <label>Имя</label>
+                        <input type="text" class="form-control" ng-model="vm.user.firstName" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.middleName.$dirty && form.middleName.$error.required }">
+                        <label>Отчество</label>
+                        <input type="text" class="form-control" ng-model="vm.user.middleName" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                        <label>Логин</label>
+                        <input type="text" class="form-control" ng-model="vm.user.username" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                        <label>Пароль</label>
+                        <input type="password" class="form-control" ng-model="vm.user.password" required/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary"
+                        data-dismiss="modal">Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Список пользователей-->
+<button class="btn btn-primary" ng-show="vm.isAdmin" data-toggle="modal" data-target="#modifyAllUsers">Список
+    пользователей
+</button>
+<div id="modifyAllUsers" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Список пользователей</h4>
+            </div>
+            <ul class="modal-body">
+                <li ng-repeat="user in vm.allUsers">
+                    {{user.lastName}} {{user.firstName}} {{user.middleName}}
+                    Логин: "{{user.username}}" Роль: "{{user.role}}" -
+                    <button type="button" ng-click="vm.modifyRoleUser(user.id)" data-dismiss="modal">Сменить права</button>
+                    <button type="button" ng-click="vm.deleteUser(user.id)" data-dismiss="modal">Удалить</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <p>&nbsp;</p>
 <p><a href="#/login" class="btn btn-primary">Выйти</a></p>

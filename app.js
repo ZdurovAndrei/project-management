@@ -24,11 +24,6 @@
                 templateUrl: 'register/register.view.html',
                 controllerAs: 'vm'
             })
-            .when('/modifyUser', {
-                controller: 'ModifyUserController',
-                templateUrl: 'modifyUser/modifyUser.view.html',
-                controllerAs: 'vm'
-            })
             .otherwise({redirectTo: '/login'});
     }
 

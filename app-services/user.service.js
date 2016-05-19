@@ -13,6 +13,7 @@
         service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
+        service.ModifyRole = ModifyRole;
         service.Delete = Delete;
         return service;
 
@@ -51,7 +52,7 @@
                             if (lastUser.id == 0) {
                                 user.role = 'Admin';
                             } else {
-                                user.role = 'User';
+                                user.role = 'Developer';
                             }
                             user.id = lastUser.id + 1;
                             users.push(user);
@@ -69,6 +70,24 @@
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id === user.id) {
                     users[i] = user;
+                    break;
+                }
+            }
+            setUsers(users);
+            deferred.resolve();
+            return deferred.promise;
+        }
+
+        function ModifyRole(id) {
+            var deferred = $q.defer();
+            var users = getUsers();
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id === id) {
+                    if (users[i].role === 'Developer') {
+                        users[i].role = 'Moderator';
+                    } else {
+                        users[i].role = 'Developer';
+                    }
                     break;
                 }
             }

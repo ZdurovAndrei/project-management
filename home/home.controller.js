@@ -10,6 +10,8 @@
         var vm = this;
         vm.user = null;
         vm.allUsers = [];
+        vm.modifyUser = modifyUser;
+        vm.modifyRoleUser = modifyRoleUser;
         vm.deleteUser = deleteUser;
         vm.isAdmin = false;
 
@@ -32,12 +34,20 @@
                     vm.allUsers = users;
                 });
         }
+        
+        function modifyUser() {
+            UserService.Update(vm.user);
+            loadUsers();
+        }
+
+        function modifyRoleUser(id) {
+            UserService.ModifyRole(id);
+            loadUsers();
+        }
 
         function deleteUser(id) {
-            UserService.Delete(id)
-            .then(function () {
-                loadAllUsers();
-            });
+            UserService.Delete(id);
+            loadUsers();
         }
     }
 

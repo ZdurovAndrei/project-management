@@ -1,16 +1,16 @@
-﻿<h3>Здравствуйте, {{vm.user.firstName}} "{{vm.user.role}}" "{{vm.isAdmin}}"</h3>
+﻿<h3>Здравствуйте, {{vm.user.firstName}} Ваш статус: "{{vm.user.role}}"</h3>
 
 <!--Редактирование профиля-->
 <button class="btn btn-primary" data-toggle="modal" data-target="#modifyUser">Редактировать профиль</button>
 <div id="modifyUser" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content" ng-submit="vm.modifyUser()">
+        <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
                 <h4 class="modal-title">Редактирование профиля</h4>
             </div>
             <div class="modal-body">
-                <form name="form" role="form">
+                <form name="form" ng-submit="vm.modifyUser()" role="form">
                     <div class="form-group"
                          ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
                         <label>Фамилия</label>
@@ -27,21 +27,19 @@
                         <input type="text" class="form-control" ng-model="vm.user.middleName" required/>
                     </div>
                     <div class="form-group"
-                         ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                         ng-class="{ 'has-error': form.projectname.$dirty && form.projectname.$error.required }">
                         <label>Логин</label>
-                        <input type="text" class="form-control" ng-model="vm.user.username" required/>
+                        <input type="text" class="form-control" ng-model="vm.user.projectname" required/>
                     </div>
                     <div class="form-group"
                          ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
                         <label>Пароль</label>
                         <input type="password" class="form-control" ng-model="vm.user.password" required/>
                     </div>
+                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary"
+                    >Сохранить
+                    </button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary"
-                        data-dismiss="modal">Сохранить
-                </button>
             </div>
         </div>
     </div>
@@ -62,10 +60,113 @@
                 <li ng-repeat="user in vm.allUsers">
                     {{user.lastName}} {{user.firstName}} {{user.middleName}}
                     Логин: "{{user.username}}" Роль: "{{user.role}}" -
-                    <button type="button" ng-click="vm.modifyRoleUser(user.id)" data-dismiss="modal">Сменить права</button>
+                    <button type="button" ng-click="vm.modifyRoleUser(user.id)" data-dismiss="modal">Сменить права
+                    </button>
                     <button type="button" ng-click="vm.deleteUser(user.id)" data-dismiss="modal">Удалить</button>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<p>Проекты:</p>
+<ul>
+    <li ng-repeat="project in vm.allProjects">
+        {{project.projectname}} -
+        <button type="button" data-toggle="modal" data-target="#modifyProject">Редактировать</button>
+        <button type="button" ng-click="vm.deleteProject(project.id)">Удалить</button>
+    </li>
+</ul>
+
+<!--Создание нового проекта-->
+<button class="btn btn-primary" data-toggle="modal" data-target="#createProject">Создать новый проект</button>
+<div id="createProject" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Создание нового проекта</h4>
+            </div>
+            <div class="modal-body">
+                <form name="form" ng-submit="vm.createProject()" role="form">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.projectname.$dirty && form.projectname.$error.required }">
+                        <label>Название</label>
+                        <input type="text" class="form-control" ng-model="vm.project.projectname" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.description.$dirty && form.description.$error.required }">
+                        <label>Описание</label>
+                        <input type="text" class="form-control" ng-model="vm.project.description" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.manager.$dirty && form.manager.$error.required }">
+                        <label>Менеджер</label><br>
+                        <select ng-model="vm.project.manager">
+                            <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}">{{user.lastName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.developers.$dirty && form.developers.$error.required }">
+                        <label>Разработчики</label><br>
+                        <select ng-model="vm.project.developers" multiple>
+                            <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}">{{user.lastName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.tasks.$dirty && form.tasks.$error.required }">
+                        <label>Задачи проекта</label>
+                        <input type="text" class="form-control" ng-model="vm.project.tasks" required/>
+                    </div>
+                    <button id="saveNewProject" type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary"
+                    >Сохранить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Редактирование проекта-->
+<div id="modifyProject" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Редактирование проекта</h4>
+            </div>
+            <div class="modal-body">
+                <form name="form" ng-submit="vm.modifyProject()" role="form">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.projectname.$dirty && form.projectname.$error.required }">
+                        <label>Название</label>
+                        <input type="text" class="form-control" ng-model="vm.project.projectname" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.description.$dirty && form.description.$error.required }">
+                        <label>Описание</label>
+                        <input type="text" class="form-control" ng-model="vm.project.description" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.manager.$dirty && form.manager.$error.required }">
+                        <label>Менеджер</label>
+                        <input type="text" class="form-control" ng-model="vm.project.manager" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.developers.$dirty && form.developers.$error.required }">
+                        <label>Разработчики</label>
+                        <input type="text" class="form-control" ng-model="vm.project.developers" required/>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': form.tasks.$dirty && form.tasks.$error.required }">
+                        <label>Задачи проекта</label>
+                        <input type="text" class="form-control" ng-model="vm.project.tasks" required/>
+                    </div>
+                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary"
+                    >Сохранить
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

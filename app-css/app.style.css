@@ -1,0 +1,146 @@
+﻿/*@import url(https://fonts.googleapis.com/css?family=Questrial);*/
+/*@import url(http://fonts.googleapis.com/css?family=Dancing+Script:700);*/
+
+/*html,*/
+/*body {*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+/*}*/
+
+/*.navbar-default {*/
+    /*border-color: rgba(35,35,35,.05);*/
+    /*font-family: 'Questrial','Helvetica Neue',Arial,sans-serif;*/
+    /*background-color: #222;*/
+    /*-webkit-transition: all .4s;*/
+    /*-moz-transition: all .4s;*/
+    /*transition: all .4s;*/
+/*}*/
+
+/*.navbar-header > .navbar-brand {*/
+    /*font-family: 'Questrial','Helvetica Neue',Arial,sans-serif;*/
+    /*color: #9c27b0;*/
+    /*padding: 15px;*/
+    /*-webkit-transition: padding .2s ease-in;*/
+    /*-moz-transition: padding .2s ease-in;*/
+    /*transition: padding .2s ease-in;*/
+/*}*/
+
+/*.navbar-header > .navbar-brand:hover,*/
+/*.navbar-header > .navbar-brand:focus {*/
+    /*color: #8b27b0;*/
+/*}*/
+
+/*.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {*/
+    /*background-color: #181818;*/
+/*}*/
+/*.navbar-default .navbar-toggle, .navbar-default .navbar-collapse {*/
+    /*border-color: transparent;*/
+/*}*/
+
+/*.navbar-default .nav > li>a,*/
+/*.navbar-default .nav>li>a:focus {*/
+    /*text-transform: uppercase;*/
+    /*font-size: 13px;*/
+    /*font-weight: 700;*/
+    /*color: #eee;*/
+/*}*/
+
+/*.navbar-default .nav > li>a:hover,*/
+/*.navbar-default .nav>li>a:focus:hover {*/
+    /*color: #9c27b0;*/
+/*}*/
+
+/*.navbar-default .nav > li.active>a,*/
+/*.navbar-default .nav>li.active>a:focus {*/
+    /*color: #9c27b0 !important;*/
+    /*background-color: transparent;*/
+/*}*/
+
+/*.navbar-default .nav > li.active>a:hover,*/
+/*.navbar-default .nav>li.active>a:focus:hover*/
+/*{*/
+    /*background-color: transparent;*/
+/*}*/
+
+
+/*@media(min-width:768px) {*/
+    /*.navbar-default {*/
+        /*border-color: transparent;*/
+        /*background-color: transparent;*/
+        /*min-height: 60px;*/
+    /*}*/
+
+    /*.navbar-header > .navbar-brand {*/
+        /*color: rgba(255,255,255,0.7);*/
+        /*padding: 19px;*/
+    /*}*/
+
+    /*.navbar-default .navbar-header .navbar-brand:hover,*/
+    /*.navbar-default .navbar-header .navbar-brand:focus {*/
+        /*color: #f4f4f4;*/
+    /*}*/
+
+    /*.navbar-default .nav > li>a,*/
+    /*.navbar-default .nav>li>a:focus {*/
+        /*color: rgba(255,255,255,0.8);*/
+        /*padding: 20px;*/
+        /*letter-spacing: 1.1px;*/
+        /*text-shadow: 1px 1px 1px rgba(60,60,60,0.7);*/
+    /*}*/
+
+    /*.navbar-default .nav > li>a:hover,*/
+    /*.navbar-default .nav>li>a:focus:hover {*/
+        /*color: #fefefe;*/
+    /*}*/
+
+    /*.navbar-default.affix {*/
+        /*border-color: rgba(34,34,34,.05);*/
+        /*background-color: #222;*/
+    /*}*/
+/*}*/
+
+/*header {*/
+    /*position: relative;*/
+    /*min-height: auto;*/
+    /*text-align: center;*/
+    /*color: #fff;*/
+    /*width: 100%;*/
+    /*background-color: #c9c9c9;*/
+    /*!*background-image: url('https://splashbase.s3.amazonaws.com/lifeofpix/regular/Life-of-Pix-free-stock-photos-Slate-Stone-Xeromatic-1440x953.jpg');*!*/
+    /*background-position: center;*/
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*background-size: cover;*/
+    /*-o-background-size: cover;*/
+/*}*/
+
+/*@media(min-width:768px) {*/
+    /*.icon-lg {*/
+        /*font-size: 80px;*/
+    /*}*/
+
+    /*header {*/
+        /*min-height: 100%;*/
+    /*}*/
+
+    /*header .header-content {*/
+        /*position: absolute;*/
+        /*top: 50%;*/
+        /*padding: 0 50px;*/
+        /*-webkit-transform: translateY(-50%);*/
+        /*-ms-transform: translateY(-50%);*/
+        /*transform: translateY(-50%);*/
+    /*}*/
+
+    /*header .header-content .inner {*/
+        /*margin-right: auto;*/
+        /*margin-left: auto;*/
+        /*max-width: 1000px;*/
+    /*}*/
+
+    /*section {*/
+        /*min-height: 600px;*/
+        /*padding: 100px 0;*/
+    /*}*/
+
+/*}*/

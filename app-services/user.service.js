@@ -5,11 +5,10 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$timeout', '$filter', '$q'];
-    function UserService($timeout, $filter, $q) {
+    UserService.$inject = ['$filter', '$q'];
+    function UserService($filter, $q) {
         var service = {};
         service.GetAll = GetAll;
-        service.GetById = GetById;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
@@ -23,17 +22,9 @@
             return deferred.promise;
         }
 
-        function GetById(id) {
-            var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { id: id });
-            var user = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
-            return deferred.promise;
-        }
-
         function GetByUsername(username) {
             var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { username: username });
+            var filtered = $filter('filter')(getUsers(), {username: username});
             var user = filtered.length ? filtered[0] : null;
             deferred.resolve(user);
             return deferred.promise;
@@ -41,26 +32,24 @@
 
         function Create(user) {
             var deferred = $q.defer();
-            $timeout(function () {
-                GetByUsername(user.username)
-                    .then(function (duplicateUser) {
-                        if (duplicateUser !== null) {
-                            deferred.resolve({ success: false, message: 'Логин "' + user.username + '" уже используется' });
+            GetByUsername(user.username)
+                .then(function (duplicateUser) {
+                    if (duplicateUser !== null) {
+                        deferred.resolve({success: false, message: 'Логин "' + user.username + '" уже используется'});
+                    } else {
+                        var users = getUsers();
+                        var lastUser = users[users.length - 1] || {id: 0};
+                        if (lastUser.id == 0) {
+                            user.role = 'Admin';
                         } else {
-                            var users = getUsers();
-                            var lastUser = users[users.length - 1] || { id: 0 };
-                            if (lastUser.id == 0) {
-                                user.role = 'Admin';
-                            } else {
-                                user.role = 'Developer';
-                            }
-                            user.id = lastUser.id + 1;
-                            users.push(user);
-                            setUsers(users);
-                            deferred.resolve({ success: true });
+                            user.role = 'Developer';
                         }
-                    });
-            }, 1000);
+                        user.id = lastUser.id + 1;
+                        users.push(user);
+                        setUsers(users);
+                        deferred.resolve({success: true});
+                    }
+                });
             return deferred.promise;
         }
 
@@ -112,7 +101,7 @@
         }
 
         function getUsers() {
-            if(!localStorage.users){
+            if (!localStorage.users) {
                 localStorage.users = JSON.stringify([]);
             }
             return JSON.parse(localStorage.users);

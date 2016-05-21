@@ -42,6 +42,9 @@
                         var tasks = getTasks();
                         var lastTask = tasks[tasks.length - 1] || {id: 0};
                         task.id = lastTask.id + 1;
+                        task.status = 'Новое';
+                        var d = new Date();
+                        task.startTime = formatDate(d);
                         tasks.push(task);
                         setTasks(tasks);
                         deferred.resolve({success: true});
@@ -88,6 +91,19 @@
 
         function setTasks(tasks) {
             localStorage.tasks = JSON.stringify(tasks);
+        }
+
+        function formatDate(date) {
+            var dd = date.getDate();
+            if (dd < 10) dd = '0' + dd;
+
+            var mm = date.getMonth() + 1;
+            if (mm < 10) mm = '0' + mm;
+
+            var yy = date.getFullYear() % 100;
+            if (yy < 10) yy = '0' + yy;
+
+            return dd + '.' + mm + '.' + yy;
         }
     }
 })();

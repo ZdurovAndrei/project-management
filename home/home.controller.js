@@ -57,7 +57,9 @@
             $('.single-page-nav').removeClass('show');
         });
 
+
         // работа с пользователями
+
         loadCurrentUser();
 
         function loadCurrentUser() {
@@ -133,6 +135,18 @@
         function deleteProject(id) {
             ProjectService.Delete(id);
             loadProjects();
+        }
+
+        var tableProjects = document.getElementById("tableProjects");
+        for (var i = 0; i < tableProjects.rows.length; i++) {
+            for (var j = 0; j < tableProjects.rows[i].cells.length; j++)
+                tableProjects.rows[i].cells[j].onclick = function () {
+                    tableText(this);
+                };
+        }
+
+        function tableText(tableCell) {
+            alert(tableCell.innerHTML);
         }
         
         

@@ -23,7 +23,6 @@
                     if (!flash.keepAfterLocationChange) {
                         delete $rootScope.flash;
                     } else {
-                        // запоминать только один браузер пользователя
                         flash.keepAfterLocationChange = false;
                     }
                 }

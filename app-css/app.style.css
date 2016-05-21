@@ -60,48 +60,6 @@ a:hover {
 }
 
 
-/* Start Main Menu */
-
-header {
-    padding: 235px 0;
-}
-
-ul#menu {
-    background: #40475A none repeat scroll 0 0;
-    padding: 6px;
-    position: fixed;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    z-index: 999;
-}
-
-.main-menu {
-    margin-top: -234px;
-}
-
-.main-menu ul {
-}
-
-.main-menu ul li {
-    display: inline-block;
-    padding: 10px;
-}
-
-.main-menu ul li a {
-    background: #383E4C none repeat scroll 0 0;
-    border: 1px solid #646d7c;
-    color: #fff;
-    font-size: 20px;
-    padding: 5px 20px;
-    text-decoration: none;
-    text-transform: capitalize;
-}
-
-.main-menu ul li a:focus,
-.main-menu ul li a:hover {
-    background: #49505F;
-}
-
 .single-page-nav {
     text-align: center;
 }
@@ -166,18 +124,20 @@ ul#menu {
     height: 38px; /* Height of image */
 }
 
-
-
 .projects-section {
-    height: 100%;
+    height: 100vh;
     padding-top: 70px;
 }
 
 .tasks-section {
-    height: 100%;
-    /* padding-top: 150px;*/
+    height: 100vh;
+     /*padding-top: 70px;*/
 }
 
+.users-section {
+    height: 100vh;
+    /*padding-top: 70px;*/
+}
 
 
 

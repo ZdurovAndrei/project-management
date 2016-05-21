@@ -1,4 +1,8 @@
-﻿<div class="col-md-6 col-md-offset-3">
+﻿<!--статус авторизации и регистрации-->
+<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
+     ng-if="flash" ng-bind="flash.message"></div>
+
+<div class="col-md-6 col-md-offset-3">
     <h2>Войдите или станьте новым пользователем</h2>
     <form name="form" ng-submit="vm.login()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">

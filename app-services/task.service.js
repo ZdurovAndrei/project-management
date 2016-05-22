@@ -43,8 +43,10 @@
                         var lastTask = tasks[tasks.length - 1] || {id: 0};
                         task.id = lastTask.id + 1;
                         task.status = 'Новое';
-                        var d = new Date();
-                        task.startTime = formatDate(d);
+                        var now = new Date();
+                        task.startTime = now.format("yyyy-mm-dd");
+                        // var d = new Date();
+                        // task.startTime = formatDate(d);
                         tasks.push(task);
                         setTasks(tasks);
                         deferred.resolve({success: true});

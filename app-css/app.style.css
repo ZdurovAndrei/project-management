@@ -1,17 +1,5 @@
-﻿body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-    font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+﻿body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: arial, sans-serif;
 }
 
 body {
@@ -25,51 +13,23 @@ img {
 }
 
 h1 {
-    font-size: 36px;
+    color: #fff;
 }
 
-h2 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-p {
-    font-size: 14px;
-    line-height: 1.6em;
-    margin: 0;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-.form-control::-webkit-input-placeholder {
-    color: black;
-}
-
-.form-control:-moz-placeholder { /* Firefox 18- */
-    color: black;
-}
-
-.form-control::-moz-placeholder { /* Firefox 19+ */
-    color: black;
-}
-
-.form-control:-ms-input-placeholder {
-    color: black;
-}
-
-
-.single-page-nav {
-    text-align: center;
+table {
+    background-color: rgba(175, 175, 175, 0.75);
 }
 
 
 /* Navigation */
 
+.single-page-nav {
+    text-align: center;
+}
+
 .navbar-inverse {
-    background-color: #383E4C;
-    border-color: #383E4C;
+    background-color: rgba(175, 175, 175, 0.75);
+    /*border-color: #383E4C;*/
 }
 
 .navbar-nav > li {
@@ -78,8 +38,8 @@ a:hover {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    background: #383E4C none repeat scroll 0 0;
-    border: 1px solid #646d7c;
+    background: rgba(175, 175, 175, 0.75) none repeat scroll 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.75);
     color: #fff;
     font-size: 20px;
     padding: 15px 25px;
@@ -89,9 +49,8 @@ a:hover {
     transition: all 0.3s ease;
 }
 
-.navbar-inverse .navbar-nav > li > a.current,
-.navbar-inverse .navbar-nav > li > a:hover {
-    background: #49505F;
+.navbar-inverse .navbar-nav > li > a.current, .navbar-inverse .navbar-nav > li > a:hover {
+    background: rgba(126, 125, 126, 0.75);
 }
 
 .navbar .navbar-nav {
@@ -120,9 +79,10 @@ a:hover {
     background-image: url("../img/top.png");
     bottom: 30px;
     right: 20px;
-    width: 38px; /* Width of image */
-    height: 38px; /* Height of image */
+    width: 38px;
+    height: 38px;
 }
+
 
 .projects-section {
     height: 100vh;
@@ -131,19 +91,11 @@ a:hover {
 
 .tasks-section {
     height: 100vh;
-     /*padding-top: 70px;*/
 }
 
 .users-section {
     height: 100vh;
-    /*padding-top: 70px;*/
 }
-
-
-
-
-
-
 
 /* Media Queries
 ----------------------*/

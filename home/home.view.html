@@ -10,6 +10,9 @@
     </div>
 </nav>
 
+
+<!--Список проектов-->
+
 <div id="section1">
     <section id="projects-area" class="projects-section">
         <div class="container">
@@ -17,10 +20,10 @@
                 <div class="col-lg-offset-8 col-lg-4 text-right">
                     <h4>Здравствуйте, {{vm.user.username}}. Вы "{{vm.user.role}}"</h4>
                     <p>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modifyUser">Редактировать
-                            профиль
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyUser">
+                            Редактировать профиль
                         </button>
-                        <a href="#/login" class="btn btn-primary">Выйти</a></p>
+                        <a href="#/login" class="btn btn-danger btn-sm">Выйти</a></p>
                 </div>
 
                 <div class="col-lg-12">
@@ -52,7 +55,7 @@
                             </table>
                         </div>
 
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#createProject">Создать новый
+                        <button class="btn btn-success" data-toggle="modal" data-target="#createProject">Создать новый
                             проект
                         </button>
                         <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
@@ -63,6 +66,9 @@
         </div>
     </section>
 </div>
+
+
+<!--Список задач-->
 
 <div id="section2">
     <section id="tasks-area" class="tasks-section">
@@ -83,7 +89,7 @@
                                     <th>Дата создания</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableTasks" style="cursor: pointer;">
                                 <tr ng-repeat="task in vm.allTasks">
                                     <td>{{task.taskname}}</td>
                                     <td>{{task.description}}</td>
@@ -99,7 +105,7 @@
                             </table>
                         </div>
 
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#createTask">Создать новую
+                        <button class="btn btn-success" data-toggle="modal" data-target="#createTask">Создать новую
                             задачу
                         </button>
                         <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
@@ -110,6 +116,9 @@
         </div>
     </section>
 </div>
+
+
+<!--Список пользователей-->
 
 <div id="section3">
     <section id="users-area" class="users-section">
@@ -140,11 +149,10 @@
                                     <td>{{user.role}}</td>
                                     <td>{{user.contact}}</td>
                                     <td>
-                                        <button type="button" ng-click="vm.modifyRoleUser(user.id)"
-                                                data-dismiss="modal">Сменить права
+                                        <button class="btn btn-success" ng-click="vm.modifyRoleUser(user.id)">Сменить
+                                            права
                                         </button>
-                                        <button type="button" ng-click="vm.deleteUser(user.id)"
-                                                data-dismiss="modal">Удалить
+                                        <button class="btn btn-success" ng-click="vm.deleteUser(user.id)">Удалить
                                         </button>
                                     </td>
 
@@ -152,7 +160,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -201,8 +208,8 @@
                         <input type="password" class="form-control" ng-model="vm.user.password"
                                required/>
                     </div>
-                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading"
-                            class="btn btn-primary"
+                    <button type="submit" ng-disabled="form.$invalid"
+                            class="btn btn-success"
                     >Сохранить
                     </button>
                 </form>
@@ -218,7 +225,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Создание нового проекта</h4>
+                <h3 class="modal-title">Создание нового проекта</h3>
             </div>
             <div class="modal-body">
                 <form name="form" ng-submit="vm.createProject()" role="form">
@@ -237,7 +244,7 @@
                     <div class="form-group"
                          ng-class="{ 'has-error': form.manager.$dirty && form.manager.$error.required }">
                         <label>Менеджер</label><br>
-                        <select ng-model="vm.project.manager">
+                        <select class="form-control" ng-model="vm.project.manager">
                             <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}">
                                 {{user.lastName}}
                             </option>
@@ -246,7 +253,7 @@
                     <div class="form-group"
                          ng-class="{ 'has-error': form.developers.$dirty && form.developers.$error.required }">
                         <label>Разработчики</label><br>
-                        <select ng-model="vm.project.developers" multiple>
+                        <select class="form-control" ng-model="vm.project.developers" multiple>
                             <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}">
                                 {{user.lastName}}
                             </option>
@@ -255,16 +262,14 @@
                     <div class="form-group"
                          ng-class="{ 'has-error': form.tasks.$dirty && form.tasks.$error.required }">
                         <label>Задачи проекта</label><br>
-                        <select ng-model="vm.project.tasks" multiple>
+                        <select class="form-control" ng-model="vm.project.tasks" multiple>
                             <option ng-repeat="task in vm.allTasks" value="{{task.taskname}}">
                                 {{task.taskname}}
                             </option>
                         </select>
                     </div>
-                    <button id="saveNewProject" type="submit"
-                            ng-disabled="form.$invalid || vm.dataLoading"
-                            class="btn btn-primary"
-                    >Сохранить
+                    <button id="saveNewProject" type="submit" ng-disabled="form.$invalid" class="btn btn-success">
+                        Сохранить
                     </button>
                 </form>
             </div>
@@ -279,7 +284,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Редактирование проекта</h4>
+                <h3 class="modal-title">Редактирование проекта</h3>
             </div>
             <div class="modal-body">
                 <form name="form" ng-submit="vm.modifyProject()" role="form">
@@ -313,9 +318,7 @@
                         <input type="text" class="form-control" ng-model="vm.project.tasks"
                                required/>
                     </div>
-                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading"
-                            class="btn btn-primary"
-                    >Сохранить
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-success">Сохранить
                     </button>
                 </form>
             </div>
@@ -331,7 +334,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Создание новой задачи</h4>
+                <h3 class="modal-title">Создание новой задачи</h3>
             </div>
             <div class="modal-body">
                 <form name="form" ng-submit="vm.createTask()" role="form">
@@ -350,7 +353,7 @@
                     <div class="form-group"
                          ng-class="{ 'has-error': form.developers.$dirty && form.developers.$error.required }">
                         <label>Разработчики</label><br>
-                        <select ng-model="vm.task.developers" multiple>
+                        <select class="form-control" ng-model="vm.task.developers" multiple>
                             <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}">
                                 {{user.lastName}}
                             </option>
@@ -362,10 +365,7 @@
                         <input type="text" class="form-control" ng-model="vm.task.time"
                                required/>
                     </div>
-                    <button id="saveNewTask" type="submit"
-                            ng-disabled="form.$invalid || vm.dataLoading"
-                            class="btn btn-primary"
-                    >Сохранить
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-success">Сохранить
                     </button>
                 </form>
             </div>

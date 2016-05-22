@@ -16,18 +16,18 @@
         vm.isAdmin = false;
 
         // Parallax
-        $('.projects-section').parallax({
-            imageSrc: 'img/bg-1.jpg',
-            speed: 0.2
-        });
-        $('.tasks-section').parallax({
-            imageSrc: 'img/bg-2.jpg',
-            speed: 0.2
-        });
-        $('.users-section').parallax({
-            imageSrc: 'img/bg-3.jpg',
-            speed: 0.2
-        });
+        // $('.projects-section').parallax({
+        //     imageSrc: 'img/bg-1.jpg',
+        //     speed: 0.2
+        // });
+        // $('.tasks-section').parallax({
+        //     imageSrc: 'img/bg-2.jpg',
+        //     speed: 0.2
+        // });
+        // $('.users-section').parallax({
+        //     imageSrc: 'img/bg-3.jpg',
+        //     speed: 0.2
+        // });
 
         // jQuery Scroll Up / Перемотать вверх
         $.scrollUp({
@@ -37,7 +37,7 @@
             scrollSpeed: 1000,
             easingType: 'linear',
             animation: 'fade',
-            animationSpeed: 300,
+            animationSpeed: 500,
             scrollText: '',
             scrollImg: true
         });
@@ -45,7 +45,7 @@
         // Навигация
         $('.single-page-nav').singlePageNav({
             offset: $('.single-page-nav').outerHeight(),
-            speed: 1000,
+            speed: 700,
             updateHash: true
         });
 

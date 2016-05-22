@@ -43,10 +43,8 @@
                         var lastTask = tasks[tasks.length - 1] || {id: 0};
                         task.id = lastTask.id + 1;
                         task.status = 'Новое';
-                        var now = new Date();
-                        task.startTime = now.format("yyyy-mm-dd");
-                        // var d = new Date();
-                        // task.startTime = formatDate(d);
+                        var d = new Date();
+                        task.startTime = formatDate(d);
                         tasks.push(task);
                         setTasks(tasks);
                         deferred.resolve({success: true});
@@ -96,6 +94,12 @@
         }
 
         function formatDate(date) {
+            var hh = date.getHours();
+            if (hh < 10) hh = '0' + hh;
+
+            var mn = date.getMinutes();
+            if (mn < 10) mn = '0' + mn;
+
             var dd = date.getDate();
             if (dd < 10) dd = '0' + dd;
 
@@ -105,7 +109,7 @@
             var yy = date.getFullYear() % 100;
             if (yy < 10) yy = '0' + yy;
 
-            return dd + '.' + mm + '.' + yy;
+            return hh + ':' + mn + ' ' + dd + '.' + mm + '.' + yy;
         }
     }
 })();

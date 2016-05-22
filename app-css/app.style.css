@@ -14,14 +14,34 @@ img {
 
 h1 {
     color: #fff;
+    text-shadow: black 0 0 3px;
 }
 
 table {
     background-color: rgba(175, 175, 175, 0.75);
 }
 
+.projects-section {
+    height: 100vh;
+    padding-top: 70px;
+    background: url("../img/bg-1.jpg") fixed;
+    background-size: 100%;
+}
 
-/* Navigation */
+.tasks-section {
+    height: 100vh;
+    background: url("../img/bg-2.jpg") fixed;
+    background-size: 100%;
+}
+
+.users-section {
+    height: 100vh;
+    background: url("../img/bg-3.jpg") fixed;
+    background-size: 100%;
+}
+
+
+/* Навигация */
 
 .single-page-nav {
     text-align: center;
@@ -29,7 +49,6 @@ table {
 
 .navbar-inverse {
     background-color: rgba(175, 175, 175, 0.75);
-    /*border-color: #383E4C;*/
 }
 
 .navbar-nav > li {
@@ -73,7 +92,7 @@ table {
 }
 
 
-/* Scrool To top */
+/* Скрол вверх */
 
 #scrollUp {
     background-image: url("../img/top.png");
@@ -82,20 +101,3 @@ table {
     width: 38px;
     height: 38px;
 }
-
-
-.projects-section {
-    height: 100vh;
-    padding-top: 70px;
-}
-
-.tasks-section {
-    height: 100vh;
-}
-
-.users-section {
-    height: 100vh;
-}
-
-/* Media Queries
-----------------------*/

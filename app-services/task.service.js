@@ -53,18 +53,15 @@
             return deferred.promise;
         }
 
-        function Update(task) {
-            var deferred = $q.defer();
+        function Update(temporaryTask) {
             var tasks = getTasks();
             for (var i = 0; i < tasks.length; i++) {
-                if (tasks[i].id === task.id) {
+                if (tasks[i].id === temporaryTask.id) {
                     tasks[i] = task;
                     break;
                 }
             }
             setTasks(tasks);
-            deferred.resolve();
-            return deferred.promise;
         }
 
         function Delete(id) {

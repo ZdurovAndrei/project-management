@@ -53,6 +53,8 @@
                         var projects = getProjects();
                         var lastProject = projects[projects.length - 1] || {id: 0};
                         project.id = lastProject.id + 1;
+                        // убрать квадратные скобки и кавычки
+                        // projects.developers = projects.developers.replace('\[','');
                         projects.push(project);
                         setProjects(projects);
                         deferred.resolve({success: true});
@@ -61,18 +63,15 @@
             return deferred.promise;
         }
 
-        function Update(project) {
-            var deferred = $q.defer();
+        function Update(temporaryProject) {
             var projects = getProjects();
             for (var i = 0; i < projects.length; i++) {
-                if (projects[i].id === project.id) {
-                    projects[i] = project;
+                if (projects[i].id === temporaryProject.id) {
+                    projects[i] = temporaryProject;
                     break;
                 }
             }
             setProjects(projects);
-            deferred.resolve();
-            return deferred.promise;
         }
 
         function Delete(id) {

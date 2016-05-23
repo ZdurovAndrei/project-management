@@ -38,7 +38,8 @@
                     </tr>
                     </thead>
                     <tbody id="tableProjects">
-                    <tr ng-repeat="project in vm.allProjects" data-toggle="modal" data-target=".viewProject" id="project">
+                    <tr ng-repeat="project in vm.allProjects" data-toggle="modal" data-target=".viewProject"
+                        ng-click="vm.viewProject(project)">
                         <td>{{project.projectname}}</td>
                         <td>{{project.description}}</td>
                         <td>{{project.manager}}</td>
@@ -190,6 +191,7 @@
                                ng-model="vm.temporaryUser.password" required/>
                     </div>
                     <button type="submit" ng-disabled="formModifyUser.$invalid" class="btn btn-success">Сохранить
+                        изменения
                     </button>
                 </form>
             </div>
@@ -257,26 +259,49 @@
                 <form name="formViewProject" ng-submit="vm.modifyProject()" role="form">
                     <div class="form-group">
                         <label>Название</label>
-                        <input type="text" placeholder="{{project.projectname}}" class="form-control"
+                        <p ng-if="!vm.allowChangeProject">{{vm.project.projectname}}</p>
+                        <input ng-if="vm.allowChangeProject" type="text" class="form-control"
                                ng-model="vm.project.projectname" required/>
                     </div>
                     <div class="form-group">
                         <label>Описание</label>
-                        <input type="text" class="form-control" ng-model="vm.project.description" required/>
+                        <p ng-if="!vm.allowChangeProject">{{vm.project.description}}</p>
+                        <input ng-if="vm.allowChangeProject" type="text" class="form-control"
+                               ng-model="vm.project.description" required/>
                     </div>
                     <div class="form-group">
                         <label>Менеджер</label>
-                        <input type="text" class="form-control" ng-model="vm.project.manager" required/>
+                        <p ng-if="!vm.allowChangeProject">{{vm.project.manager}}</p>
+                        <select class="form-control" ng-if="vm.allowChangeProject" ng-model="vm.project.manager">
+                            <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}"
+                                    ng-if="user.role === 'Manager'">
+                                {{user.lastName}}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Разработчики</label>
-                        <input type="text" class="form-control" ng-model="vm.project.developers" required/>
+                        <p ng-if="!vm.allowChangeProject">{{vm.project.developers}}</p>
+                        <select class="form-control" ng-if="vm.allowChangeProject" ng-model="vm.project.developers"
+                                multiple>
+                            <option ng-repeat="user in vm.allUsers" value="{{user.lastName}}"
+                                    ng-if="user.role === 'Developer'">
+                                {{user.lastName}}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Задачи проекта</label>
-                        <input type="text" class="form-control" ng-model="vm.project.tasks" required/>
+                        <p ng-if="!vm.allowChangeProject">{{vm.project.tasks}}</p>
+                        <input ng-if="vm.allowChangeProject" type="text" class="form-control"
+                               ng-model="vm.project.tasks" required/>
                     </div>
-                    <button type="submit" ng-disabled="formViewProject.$invalid" class="btn btn-success">Сохранить
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-click="vm.toggleAllowChangeProject()">Включить
+                            редактирование</label>
+                    </div>
+                    <button type="submit" ng-if="vm.allowChangeProject" ng-disabled="formViewProject.$invalid"
+                            class="btn btn-success">Сохранить изменения
                     </button>
                 </form>
             </div>

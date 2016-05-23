@@ -46,6 +46,9 @@
         vm.project = null;
         vm.allProjects = [];
         vm.createProject = createProject;
+        vm.viewProject = viewProject;
+        vm.allowChangeProject = false;
+        vm.toggleAllowChangeProject = toggleAllowChangeProject;
         vm.modifyProject = modifyProject;
         vm.deleteProject = deleteProject;
 
@@ -75,10 +78,17 @@
             $('#createProject').modal('hide');
         }
 
+        function viewProject(currentProject) {
+            vm.project = currentProject;
+        }
+        
+        function toggleAllowChangeProject() {
+            vm.allowChangeProject = !vm.allowChangeProject;
+        }
+
         function modifyProject() {
             ProjectService.Update(vm.project);
             loadProjects();
-            $('#modifyProject').modal('hide');
         }
 
         function deleteProject(id) {

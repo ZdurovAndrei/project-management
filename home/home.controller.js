@@ -1,35 +1,15 @@
 ﻿(function () {
     'use strict';
-    
+
     angular
         .module('app')
         .controller('HomeController', HomeController);
 
     HomeController.$inject = ['UserService', 'ProjectService', 'TaskService', '$rootScope', 'FlashService'];
     function HomeController(UserService, ProjectService, TaskService, $rootScope, FlashService) {
-        var vm = this;
-        vm.user = null;
-        vm.allUsers = [];
-        vm.modifyUser = modifyUser;
-        vm.modifyRoleUser = modifyRoleUser;
-        vm.deleteUser = deleteUser;
-        vm.isAdmin = false;
 
-        // Parallax
-        // $('.projects-section').parallax({
-        //     imageSrc: 'img/bg-1.jpg',
-        //     speed: 0.2
-        // });
-        // $('.tasks-section').parallax({
-        //     imageSrc: 'img/bg-2.jpg',
-        //     speed: 0.2
-        // });
-        // $('.users-section').parallax({
-        //     imageSrc: 'img/bg-3.jpg',
-        //     speed: 0.2
-        // });
+        // Кнопка скролла вверх
 
-        // jQuery Scroll Up / Перемотать вверх
         $.scrollUp({
             scrollName: 'scrollUp',
             scrollDistance: 300,
@@ -42,7 +22,9 @@
             scrollImg: true
         });
 
+
         // Навигация
+
         $('.single-page-nav').singlePageNav({
             offset: $('.single-page-nav').outerHeight(),
             speed: 700,
@@ -58,54 +40,21 @@
         });
 
 
-        // работа с пользователями
-
-        loadCurrentUser();
-
-        function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
-                .then(function (user) {
-                    vm.user = user;
-                    if (vm.user.role == 'Admin') {
-                        loadUsers();
-                        vm.isAdmin = true;
-                    }
-                });
-        }
-
-        function loadUsers() {
-            UserService.GetAll()
-                .then(function (users) {
-                    vm.allUsers = users;
-                });
-        }
-
-        function modifyUser() {
-            UserService.Update(vm.user);
-            $('#modifyUser').modal('hide');
-            loadUsers();
-        }
-
-        function modifyRoleUser(id) {
-            UserService.ModifyRole(id);
-            loadUsers();
-        }
-
-        function deleteUser(id) {
-            UserService.Delete(id);
-            loadUsers();
-        }
-
-        
         // работа с проектами
-        
+
+        var vm = this;
         vm.project = null;
         vm.allProjects = [];
         vm.createProject = createProject;
         vm.modifyProject = modifyProject;
         vm.deleteProject = deleteProject;
 
+        $('#modalViewProject').on('shown.bs.modal', function () {
+            // $( "#result" ).html( data );
+        });
+
         loadProjects();
+
         function loadProjects() {
             ProjectService.GetAll()
                 .then(function (projects) {
@@ -117,7 +66,7 @@
             ProjectService.Create(vm.project)
                 .then(function (response) {
                     if (response.success) {
-                        FlashService.Success('Проект успешно создан.', true);
+                        // FlashService.Success('Проект успешно создан.', true);
                     } else {
                         FlashService.Error(response.message);
                     }
@@ -148,10 +97,10 @@
         function tableText(tableCell) {
             alert(tableCell.innerHTML);
         }
-        
-        
+
+
         // работа с задачами
-        
+
         vm.task = null;
         vm.allTasks = [];
         vm.createTask = createTask;
@@ -170,12 +119,18 @@
             TaskService.Create(vm.task)
                 .then(function (response) {
                     if (response.success) {
-                        FlashService.Success('Задача успешно создана.', true);
+                        var currentProject = ProjectService.GetProject(vm.task.project);
+                        if (currentProject.tasks != '') {
+                            currentProject.tasks += ', ';
+                        }
+                        currentProject.tasks += vm.task.taskname;
+                        ProjectService.Update(currentProject);
+                        // FlashService.Success('Задача успешно создана.', true);
                     } else {
                         FlashService.Error(response.message);
                     }
                 });
-            loadTasks();
+            //loadTasks();
             $('#createTask').modal('hide');
         }
 
@@ -189,6 +144,58 @@
             TaskService.Delete(id);
             loadTasks();
         }
-    }
 
+
+        // работа с пользователями
+
+        vm.user = null;
+        vm.temporaryUser = null;
+        vm.allUsers = [];
+        vm.modifyUser = modifyUser;
+        vm.modifyRoleUser = modifyRoleUser;
+        vm.deleteUser = deleteUser;
+        vm.isAdmin = false;
+
+        loadCurrentUser();
+
+        function loadCurrentUser() {
+            UserService.GetByUsername($rootScope.globals.currentUser.username)
+                .then(function (user) {
+                    vm.user = user;
+                    if (vm.user.role == 'Admin') {
+                        loadUsers();
+                        vm.isAdmin = true;
+                    }
+                });
+        }
+
+        function loadUsers() {
+            UserService.GetAll()
+                .then(function (users) {
+                    vm.allUsers = users;
+                });
+        }
+
+        function modifyUser() {
+            vm.temporaryUser.id = vm.user.id;
+            vm.temporaryUser.role = vm.user.role;
+            UserService.Update(vm.temporaryUser);
+
+            // Не удается изменить $rootScope !!!
+            $rootScope.globals.currentUser.username = vm.temporaryUser.username;
+
+            loadCurrentUser();
+            $('#modifyUser').modal('hide');
+        }
+
+        function modifyRoleUser(id) {
+            UserService.ModifyRole(id);
+            loadUsers();
+        }
+
+        function deleteUser(id) {
+            UserService.Delete(id);
+            loadUsers();
+        }
+    }
 })();

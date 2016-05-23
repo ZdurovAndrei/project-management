@@ -6,40 +6,46 @@ body {
     overflow-x: hidden;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    border: none;
-}
-
-h1 {
-    color: #fff;
+h1, .username {
+    color: white;
     text-shadow: black 0 0 3px;
 }
 
-table {
-    background-color: rgba(175, 175, 175, 0.75);
+.table-responsive {
+    background-color: rgba(212, 212, 212, 0.75);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#tableProjects, #tableTasks {
+    cursor: pointer;
+}
+
+.login-section, .register-section {
+    height: 85vh;
 }
 
 .projects-section {
     height: 100vh;
     padding-top: 70px;
-    background: url("../img/bg-1.jpg") fixed;
+    background-image: url("../img/bg-1.jpg");
+    background-attachment: fixed;
     background-size: 100%;
 }
 
 .tasks-section {
     height: 100vh;
-    background: url("../img/bg-2.jpg") fixed;
+    background-image: url("../img/bg-2.jpg");
+    background-attachment: fixed;
     background-size: 100%;
 }
 
 .users-section {
     height: 100vh;
-    background: url("../img/bg-3.jpg") fixed;
+    background-image: url("../img/bg-3.jpg");
+    background-attachment: fixed;
     background-size: 100%;
 }
-
 
 /* Навигация */
 
@@ -48,16 +54,16 @@ table {
 }
 
 .navbar-inverse {
-    background-color: rgba(175, 175, 175, 0.75);
+    background-color: rgba(212, 212, 212, 0.75);
 }
 
 .navbar-nav > li {
     display: inline-block;
-    padding: 10px;
+    padding: 5px;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    background: rgba(175, 175, 175, 0.75) none repeat scroll 0 0;
+    background: rgba(212, 212, 212, 0.75) none repeat scroll 0 0;
     border: 1px solid rgba(0, 0, 0, 0.75);
     color: #fff;
     font-size: 20px;
@@ -81,7 +87,6 @@ table {
     text-align: center;
 }
 
-
 /* Footer */
 
 .copy {
@@ -90,7 +95,6 @@ table {
     margin-bottom: 30px;
     margin-top: 10px;
 }
-
 
 /* Скрол вверх */
 

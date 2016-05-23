@@ -53,18 +53,15 @@
             return deferred.promise;
         }
 
-        function Update(user) {
-            var deferred = $q.defer();
+        function Update(temporaryUser) {
             var users = getUsers();
             for (var i = 0; i < users.length; i++) {
-                if (users[i].id === user.id) {
-                    users[i] = user;
+                if (users[i].id === temporaryUser.id) {
+                    users[i] = temporaryUser;
                     break;
                 }
             }
             setUsers(users);
-            deferred.resolve();
-            return deferred.promise;
         }
 
         function ModifyRole(id) {
@@ -73,7 +70,7 @@
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id === id) {
                     if (users[i].role === 'Developer') {
-                        users[i].role = 'Moderator';
+                        users[i].role = 'Manager';
                     } else {
                         users[i].role = 'Developer';
                     }

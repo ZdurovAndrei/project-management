@@ -9,6 +9,7 @@
     function ProjectService($filter, $q) {
         var service = {};
         service.GetAll = GetAll;
+        service.GetProject = GetProject;
         service.GetByProjectname = GetByProjectname;
         service.Create = Create;
         service.Update = Update;
@@ -21,6 +22,16 @@
             return deferred.promise;
         }
 
+        function GetProject(projectname) {
+            var projects = getProjects();
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].projectname === projectname) {
+                    return projects[i];
+                }
+            }
+            
+        }
+        
         function GetByProjectname(projectname) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getProjects(), {projectname: projectname});

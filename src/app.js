@@ -11,17 +11,17 @@
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
-                templateUrl: 'static/viewHtml/home.html',
+                templateUrl: 'static/views/home.html',
                 controllerAs: 'vm'
             })
             .when('/login', {
                 controller: 'LoginController',
-                templateUrl: 'static/viewHtml/login.html',
+                templateUrl: 'static/views/login.html',
                 controllerAs: 'vm'
             })
             .when('/register', {
                 controller: 'RegisterController',
-                templateUrl: 'static/viewHtml/register.html',
+                templateUrl: 'static/views/register.html',
                 controllerAs: 'vm'
             })
         .otherwise({redirectTo: '/'});

@@ -71,22 +71,19 @@
                         FlashService.Error(response.message);
                     }
                 });
-            
-            //loadProjects();
             $('#createProject').modal('hide');
         }
 
         function viewProject(currentProject) {
             vm.project = currentProject;
         }
-        
+
         function toggleAllowChangeProject() {
             vm.allowChangeProject = !vm.allowChangeProject;
         }
 
         function modifyProject() {
             ProjectService.Update(vm.project);
-            loadProjects();
             $('#modalViewProject').modal('hide');
         }
 
@@ -96,28 +93,20 @@
             $('#modalViewProject').modal('hide');
         }
 
-        var tableProjects = document.getElementById("tableProjects");
-        for (var i = 0; i < tableProjects.rows.length; i++) {
-            for (var j = 0; j < tableProjects.rows[i].cells.length; j++)
-                tableProjects.rows[i].cells[j].onclick = function () {
-                    tableText(this);
-                };
-        }
-
-        function tableText(tableCell) {
-            alert(tableCell.innerHTML);
-        }
-
 
         // работа с задачами
 
         vm.task = null;
+        vm.temporaryTask = null;
         vm.allTasks = [];
         vm.createTask = createTask;
+        vm.viewTask = viewTask;
+        vm.toggleAllowChangeTask = toggleAllowChangeTask;
         vm.modifyTask = modifyTask;
         vm.deleteTask = deleteTask;
 
         loadTasks();
+
         function loadTasks() {
             TaskService.GetAll()
                 .then(function (tasks) {
@@ -133,27 +122,40 @@
                         if (currentProject.tasks != undefined) {
                             currentProject.tasks += ', ' + vm.task.taskname;
                         } else {
-                            currentProject.tasks += vm.task.taskname;
+                            currentProject.tasks = vm.task.taskname;
                         }
                         ProjectService.Update(currentProject);
-                        // FlashService.Success('Задача успешно создана.', true);
                     } else {
                         FlashService.Error(response.message);
                     }
                 });
-            //loadTasks();
             $('#createTask').modal('hide');
+        }
+
+        var temporaryTaskname = null;
+
+        function viewTask(currentTask) {
+            temporaryTaskname = currentTask.taskname;
+            vm.task = currentTask;
+            vm.allowChangeTask = false;
+        }
+
+        function toggleAllowChangeTask() {
+            vm.allowChangeTask = !vm.allowChangeTask;
         }
 
         function modifyTask() {
             TaskService.Update(vm.task);
-            loadTasks();
-            $('#modifyTask').modal('hide');
+            var currentProject = ProjectService.GetProject(vm.task.project);
+            currentProject.tasks = currentProject.tasks.replace(temporaryTaskname, vm.task.taskname);
+            ProjectService.Update(currentProject);
+            $('#modalViewTask').modal('hide');
         }
 
         function deleteTask(id) {
             TaskService.Delete(id);
             loadTasks();
+            $('#modalViewTask').modal('hide');
         }
 
 

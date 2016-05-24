@@ -9,6 +9,7 @@
     function TaskService($filter, $q) {
         var service = {};
         service.GetAll = GetAll;
+        service.GetTask = GetTask;
         service.GetByTaskname = GetByTaskname;
         service.Create = Create;
         service.Update = Update;
@@ -19,6 +20,15 @@
             var deferred = $q.defer();
             deferred.resolve(getTasks());
             return deferred.promise;
+        }
+
+        function GetTask(taskname) {
+            var tasks = getTasks();
+            for (var i = 0; i < tasks.length; i++) {
+                if (tasks[i].taskname === taskname) {
+                    return tasks[i];
+                }
+            }
         }
 
         function GetByTaskname(taskname) {
@@ -57,7 +67,13 @@
             var tasks = getTasks();
             for (var i = 0; i < tasks.length; i++) {
                 if (tasks[i].id === temporaryTask.id) {
-                    tasks[i] = task;
+                    tasks[i].taskname = temporaryTask.taskname;
+                    tasks[i].description = temporaryTask.description;
+                    tasks[i].project = temporaryTask.project;
+                    tasks[i].developers = temporaryTask.developers;
+                    tasks[i].status = temporaryTask.status;
+                    tasks[i].time = temporaryTask.time;
+                    tasks[i].startTime = temporaryTask.startTime;
                     break;
                 }
             }

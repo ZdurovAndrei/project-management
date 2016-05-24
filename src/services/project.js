@@ -29,7 +29,6 @@
                     return projects[i];
                 }
             }
-            
         }
         
         function GetByProjectname(projectname) {
@@ -53,14 +52,11 @@
                         var projects = getProjects();
                         var lastProject = projects[projects.length - 1] || {id: 0};
                         project.id = lastProject.id + 1;
-                        // убрать квадратные скобки и кавычки
-                        // projects.developers = projects.developers.replace('\[','');
                         projects.push(project);
                         setProjects(projects);
                         deferred.resolve({success: true});
                     }
                 });
-            // getProjects();
             return deferred.promise;
         }
 

@@ -44,6 +44,7 @@
 
         var vm = this;
         vm.project = null;
+        vm.temporaryProject = null;
         vm.allProjects = [];
         vm.createProject = createProject;
         vm.viewProject = viewProject;
@@ -51,10 +52,6 @@
         vm.toggleAllowChangeProject = toggleAllowChangeProject;
         vm.modifyProject = modifyProject;
         vm.deleteProject = deleteProject;
-
-        $('#modalViewProject').on('shown.bs.modal', function () {
-            // $( "#result" ).html( data );
-        });
 
         loadProjects();
 
@@ -66,7 +63,7 @@
         }
 
         function createProject() {
-            ProjectService.Create(vm.project)
+            ProjectService.Create(vm.temporaryProject)
                 .then(function (response) {
                     if (response.success) {
                         // FlashService.Success('Проект успешно создан.', true);
@@ -74,7 +71,8 @@
                         FlashService.Error(response.message);
                     }
                 });
-            loadProjects();
+            
+            //loadProjects();
             $('#createProject').modal('hide');
         }
 
@@ -89,11 +87,13 @@
         function modifyProject() {
             ProjectService.Update(vm.project);
             loadProjects();
+            $('#modalViewProject').modal('hide');
         }
 
         function deleteProject(id) {
             ProjectService.Delete(id);
             loadProjects();
+            $('#modalViewProject').modal('hide');
         }
 
         var tableProjects = document.getElementById("tableProjects");
@@ -130,10 +130,11 @@
                 .then(function (response) {
                     if (response.success) {
                         var currentProject = ProjectService.GetProject(vm.task.project);
-                        if (currentProject.tasks != '') {
-                            currentProject.tasks += ', ';
+                        if (currentProject.tasks != undefined) {
+                            currentProject.tasks += ', ' + vm.task.taskname;
+                        } else {
+                            currentProject.tasks += vm.task.taskname;
                         }
-                        currentProject.tasks += vm.task.taskname;
                         ProjectService.Update(currentProject);
                         // FlashService.Success('Задача успешно создана.', true);
                     } else {

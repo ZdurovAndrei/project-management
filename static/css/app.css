@@ -28,21 +28,21 @@ h1, .username {
 .projects-section {
     height: 100vh;
     padding-top: 70px;
-    background-image: url("../img/bg-1.jpg");
+    background-image: url("../../content/img/bg-1.jpg");
     background-attachment: fixed;
     background-size: 100%;
 }
 
 .tasks-section {
     height: 100vh;
-    background-image: url("../img/bg-2.jpg");
+    background-image: url("../../content/img/bg-2.jpg");
     background-attachment: fixed;
     background-size: 100%;
 }
 
 .users-section {
     height: 100vh;
-    background-image: url("../img/bg-3.jpg");
+    background-image: url("../../content/img/bg-3.jpg");
     background-attachment: fixed;
     background-size: 100%;
 }
@@ -99,7 +99,7 @@ h1, .username {
 /* Скрол вверх */
 
 #scrollUp {
-    background-image: url("../img/top.png");
+    background-image: url("../../content/img/top.png");
     bottom: 30px;
     right: 20px;
     width: 38px;

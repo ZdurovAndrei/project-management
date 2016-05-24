@@ -60,6 +60,7 @@
                         deferred.resolve({success: true});
                     }
                 });
+            // getProjects();
             return deferred.promise;
         }
 
@@ -67,7 +68,11 @@
             var projects = getProjects();
             for (var i = 0; i < projects.length; i++) {
                 if (projects[i].id === temporaryProject.id) {
-                    projects[i] = temporaryProject;
+                    projects[i].projectname = temporaryProject.projectname;
+                    projects[i].description = temporaryProject.description;
+                    projects[i].manager = temporaryProject.manager;
+                    projects[i].developers = temporaryProject.developers;
+                    projects[i].tasks = temporaryProject.tasks;
                     break;
                 }
             }

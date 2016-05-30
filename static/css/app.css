@@ -6,12 +6,22 @@ body {
     overflow-x: hidden;
 }
 
-h1, .username {
+h1 {
     color: white;
     text-shadow: black 0 0 3px;
+    float: left;
+}
+
+.username {
+    color: rgb(77, 111, 255);
+}
+
+.filter {
+    float: right;
 }
 
 .table-responsive {
+    clear: left;
     background-color: rgba(212, 212, 212, 0.75);
     max-height: 80vh;
     overflow-y: auto;
@@ -19,6 +29,10 @@ h1, .username {
 
 #tableProjects, #tableTasks {
     cursor: pointer;
+}
+
+p {
+    min-height: 30px;
 }
 
 .login-section, .register-section {
@@ -64,6 +78,7 @@ h1, .username {
 
 .navbar-inverse .navbar-nav > li > a {
     background: rgba(212, 212, 212, 0.75) none repeat scroll 0 0;
+    text-shadow: black 0 0 3px;
     border: 1px solid rgba(0, 0, 0, 0.75);
     color: #fff;
     font-size: 20px;
@@ -87,15 +102,6 @@ h1, .username {
     text-align: center;
 }
 
-/* Footer */
-
-.copy {
-    color: #666;
-    font-size: 12px;
-    margin-bottom: 30px;
-    margin-top: 10px;
-}
-
 /* Скрол вверх */
 
 #scrollUp {
@@ -104,4 +110,13 @@ h1, .username {
     right: 20px;
     width: 38px;
     height: 38px;
+}
+
+/* Footer */
+
+.copy {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }

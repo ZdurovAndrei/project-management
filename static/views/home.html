@@ -17,15 +17,19 @@
     <div class="container">
         <div class="col-lg-offset-8 col-lg-4 text-right">
             <h4 class="username">Здравствуйте, {{vm.user.username}}. Вы "{{vm.user.role}}"</h4>
-            <p>
+            <div>
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyUser">
                     Редактировать профиль
                 </button>
-                <a href="#/login" class="btn btn-danger btn-sm">Выйти</a></p>
+                <a href="#/login" class="btn btn-danger btn-sm">Выйти</a>
+            </div>
         </div>
 
         <div class="col-lg-12">
-            <h1>Проекты:</h1>
+            <div class="nameSection">
+                <h1>Проекты:</h1>
+                <input class="filter" type="text" placeholder="Фильтр" ng-model="projectFilter">
+            </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-hover">
                     <thead>
@@ -38,8 +42,9 @@
                     </tr>
                     </thead>
                     <tbody id="tableProjects">
-                    <tr ng-repeat="project in vm.allProjects" data-toggle="modal" data-target=".viewProject"
-                        ng-click="vm.viewProject(project)">
+                    <tr ng-repeat="project in vm.allProjects | filter: projectFilter" data-toggle="modal"
+                        data-target=".viewProject" ng-click="vm.viewProject(project)">
+                        <!--ng-hide="vm.user.role === 'Developer' && project.developers != vm.user.lastName">-->
                         <td>{{project.projectname}}</td>
                         <td>{{project.description}}</td>
                         <td>{{project.manager}}</td>
@@ -50,7 +55,8 @@
                 </table>
             </div>
 
-            <button class="btn btn-success" data-toggle="modal" data-target="#createProject">Создать новый проект
+            <button ng-hide="vm.user.role === 'Developer'" class="btn btn-success" data-toggle="modal"
+                    data-target="#createProject">Создать новый проект
             </button>
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"
                  ng-show="flash" ng-bind="flash.message"></div>
@@ -64,7 +70,10 @@
 <div id="section2" class="tasks-section">
     <div class="container">
         <div class="col-lg-12">
-            <h1>Задачи:</h1>
+            <div class="nameSection">
+                <h1>Задачи:</h1>
+                <input class="filter" type="text" placeholder="Фильтр" ng-model="taskFilter">
+            </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-hover">
                     <thead>
@@ -79,8 +88,9 @@
                     </tr>
                     </thead>
                     <tbody id="tableTasks">
-                    <tr ng-repeat="task in vm.allTasks" data-toggle="modal" data-target=".viewTask"
+                    <tr ng-repeat="task in vm.allTasks | filter: taskFilter" data-toggle="modal" data-target=".viewTask"
                         ng-click="vm.viewTask(task)">
+                        <!--ng-hide="vm.user.role === 'Developer' && task.developers != vm.user.lastName">-->
                         <td>{{task.taskname}}</td>
                         <td>{{task.description}}</td>
                         <td>{{task.project}}</td>
@@ -107,7 +117,10 @@
 <div id="section3" class="users-section" ng-show="vm.isAdmin">
     <div class="container">
         <div class="col-lg-12">
-            <h1>Список пользователей:</h1>
+            <div class="nameSection">
+                <h1>Список пользователей:</h1>
+                <input class="filter" type="text" placeholder="Фильтр" ng-model="userFilter">
+            </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-hover">
                     <thead>
@@ -122,7 +135,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="user in vm.allUsers">
+                    <tr ng-repeat="user in vm.allUsers | filter: userFilter">
                         <td>{{user.lastName}}</td>
                         <td>{{user.firstName}}</td>
                         <td>{{user.middleName}}</td>
@@ -295,7 +308,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="checkbox">
+                    <div class="checkbox" ng-hide="vm.user.role === 'Developer'">
                         <label><input type="checkbox" ng-click="vm.toggleAllowChangeProject()">Включить
                             редактирование</label>
                     </div>
@@ -424,8 +437,8 @@
                     <button type="submit" ng-show="vm.allowChangeTask" ng-disabled="formViewTask.$invalid"
                             class="btn btn-primary">Сохранить изменения
                     </button>
-                    <button ng-show="vm.allowChangeTask" ng-click="vm.deleteTask(vm.task.id)"
-                            class="btn btn-danger">Удалить задачу
+                    <button ng-show="vm.allowChangeTask && vm.user.role != 'Developer'"
+                            ng-click="vm.deleteTask(vm.task.id)" class="btn btn-danger">Удалить задачу
                     </button>
                 </form>
             </div>
